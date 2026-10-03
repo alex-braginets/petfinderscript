@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>15+ крутых игр | Современный игровой портал</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0b0d17;
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+      padding: 2rem 1.5rem;
+      min-height: 100vh;
+    }
+
+    /* Анимированный градиентный фон */
+    .bg-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 20%, rgba(88, 28, 135, 0.4), transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(6, 182, 212, 0.3), transparent 45%),
+                  radial-gradient(circle at 40% 80%, rgba(236, 72, 153, 0.25), transparent 50%);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Шапка */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(to right, #a78bfa, #22d3ee, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .logo i {
+      font-size: 2.2rem;
+      background: none;
+      -webkit-text-fill-color: #a78bfa;
+      color: #a78bfa;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 60px;
+      padding: 0.5rem 1.25rem;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s;
+    }
+
+    .search-bar:focus-within {
+      border-color: #a78bfa;
+      box-shadow: 0 0 15px rgba(167, 139, 250, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .search-bar i {
+      color: #9ca3af;
+      font-size: 1rem;
+      margin-right: 0.75rem;
+    }
+
+    .search-bar input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: white;
+      font-size: 1rem;
+      width: 260px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .search-bar input::placeholder {
+      color: #6b7280;
+    }
+
+    /* Статистика */
+    .stats {
+      display: flex;
+      gap: 2rem;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 0.75rem 2rem;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(8px);
+      font-weight: 500;
+    }
+
+    .stats span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .stats i {
+      color: #22d3ee;
+    }
+
+    /* Заголовки */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 3rem 0 1.75rem 0;
+      font-size: 1.75rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title i {
+      color: #f472b6;
+      font-size: 1.8rem;
+    }
+
+    .section-title span {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.15rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #a78bfa;
+      border: 1px solid rgba(167, 139, 250, 0.3);
+    }
+
+    /* Сетка игр */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .game-card {
+      background: rgba(20, 20, 35, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: transform 0.25s ease, box-shadow 0.35s ease, border-color 0.2s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.6);
+    }
+
+    .game-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(167, 139, 250, 0.5);
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(167, 139, 250, 0.3);
+    }
+
+    .game-thumb {
+      aspect-ratio: 1 / 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.8rem;
+      background: linear-gradient(145deg, #141822, #1e1f2e);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* разные цветовые подложки для иконок */
+    .game-thumb i {
+      text-shadow: 0 0 25px currentColor;
+      transition: transform 0.2s;
+    }
+
+    .game-card:hover .game-thumb i {
+      transform: scale(1.08);
+    }
+
+    .game-info {
+      padding: 1rem 1rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .game-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .game-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      margin-top: 0.2rem;
+    }
+
+    .game-meta i {
+      color: #fbbf24;
+      margin-right: 0.2rem;
+    }
+
+    .badge {
+      background: rgba(167, 139, 250, 0.15);
+      color: #c4b5fd;
+      padding: 0.2rem 0.7rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(167, 139, 250, 0.2);
+    }
+
+    /* Подвал */
+    footer {
+      margin-top: 5rem;
+      padding: 2rem 0 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    .socials {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .socials a {
+      color: #9ca3af;
+      font-size: 1.2rem;
+      transition: color 0.2s;
+    }
+
+    .socials a:hover {
+      color: #a78bfa;
+    }
+
+    /* Адаптив */
+    @media (max-width: 700px) {
+      body { padding: 1.5rem 1rem; }
+      header { flex-direction: column; align-items: stretch; }
+      .search-bar input { width: 100%; }
+      .search-bar { width: 100%; }
+      .stats { justify-content: space-around; }
+      .section-title { font-size: 1.5rem; }
+      .games-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    }
+    @media (max-width: 450px) {
+      .games-grid { grid-template-columns: 1fr 1fr; }
+      .game-thumb { font-size: 2.8rem; }
+    }
+
+    /* Плавное появление */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .game-card {
+      animation: fadeUp 0.4s ease backwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="bg-grid"></div>
+
+  <div class="container">
+    <!-- Шапка -->
+    <header>
+      <div class="logo">
+        <i class="fas fa-gamepad"></i>
+        <span>GameVerse</span>
+      </div>
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Поиск игры..." id="searchInput">
+      </div>
+      <div class="stats">
+        <span><i class="fas fa-dice"></i> 24 игры</span>
+        <span><i class="fas fa-users"></i> 1.2k онлайн</span>
+      </div>
+    </header>
+
+    <!-- Секция с играми -->
+    <div class="section-title">
+      <i class="fas fa-fire"></i> Популярные игры <span>15+</span>
+    </div>
+
+    <div class="games-grid" id="gamesGrid">
+      <!-- Игры будут сгенерированы через JavaScript -->
+    </div>
+
+    <!-- Подвал -->
+    <footer>
+      <div>© 2025 GameVerse — играй в лучшие игры онлайн</div>
+      <div class="socials">
+        <a href="#"><i class="fab fa-discord"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-telegram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function() {
+      // ------------------------------------------------------------
+      // МАССИВ С 20 ИГРАМИ (название, иконка Font Awesome, цвет иконки, рейтинг, категория)
+      // ------------------------------------------------------------
+      const gamesData = [
+        { title: "Космический бой", icon: "fa-rocket", color: "#a78bfa", rating: 4.8, category: "Экшен" },
+        { title: "Тетрис 3D", icon: "fa-cubes", color: "#22d3ee", rating: 4.7, category: "Головоломка" },
+        { title: "Гонки на выживание", icon: "fa-car", color: "#f97316", rating: 4.9, category: "Гонки" },
+        { title: "Змейка эволюция", icon: "fa-worm", color: "#10b981", rating: 4.6, category: "Аркада" },
+        { title: "Королевская битва", icon: "fa-crosshairs", color: "#ef4444", rating: 4.9, category: "Шутер" },
+        { title: "Морской бой", icon: "fa-ship", color: "#3b82f6", rating: 4.5, category: "Стратегия" },
+        { title: "Пинбол мания", icon: "fa-baseball", color: "#f59e0b", rating: 4.4, category: "Аркада" },
+        { title: "Сапёр", icon: "fa-bomb", color: "#dc2626", rating: 4.7, category: "Головоломка" },
+        { title: "Крестики-нолики", icon: "fa-hashtag", color: "#8b5cf6", rating: 4.3, category: "Логика" },
+        { title: "Пазл 2048", icon: "fa-puzzle-piece", color: "#ec4899", rating: 4.8, category: "Головоломка" },
+        { title: "Танчики", icon: "fa-tank", color: "#84cc16", rating: 4.6, category: "Экшен" },
+        { title: "Футбол пенальти", icon: "fa-futbol", color: "#22c55e", rating: 4.5, category: "Спорт" },
+        { title: "Баскетбол", icon: "fa-basketball", color: "#f97316", rating: 4.4, category: "Спорт" },
+        { title: "Лабиринт", icon: "fa-dungeon", color: "#a855f7", rating: 4.2, category: "Приключения" },
+        { title: "Косынка", icon: "fa-clover", color: "#eab308", rating: 4.7, category: "Карты" },
+        { title: "Шахматы", icon: "fa-chess", color: "#e5e7eb", rating: 4.9, category: "Стратегия" },
+        { title: "Арканоид", icon: "fa-table-tennis", color: "#06b6d4", rating: 4.6, category: "Аркада" },
+        { title: "Флаппи птица", icon: "fa-dove", color: "#fbbf24", rating: 4.3, category: "Аркада" },
+        { title: "Виселица", icon: "fa-skull", color: "#9ca3af", rating: 4.2, category: "Слова" },
+        { title: "Судоку", icon: "fa-table", color: "#14b8a6", rating: 4.8, category: "Головоломка" }
+      ];
+
+      const gamesGrid = document.getElementById('gamesGrid');
+      const searchInput = document.getElementById('searchInput');
+
+      // Функция для отрисовки карточек с учётом фильтра
+      function renderGames(filterText = '') {
+        const query = filterText.trim().toLowerCase();
+        const filtered = gamesData.filter(game => 
+          game.title.toLowerCase().includes(query) || 
+          game.category.toLowerCase().includes(query)
+        );
+
+        if (filtered.length === 0) {
+          gamesGrid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #9ca3af; font-size: 1.2rem;">
+              <i class="fas fa-search" style="font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.5;"></i><br>
+              Ничего не найдено. Попробуйте другой запрос.
+            </div>
+          `;
+          return;
+        }
+
+        let html = '';
+        filtered.forEach((game, index) => {
+          // Небольшая задержка для каскадной анимации
+          const delay = (index * 0.03).toFixed(2);
+          html += `
+            <div class="game-card" style="animation-delay: ${delay}s">
+              <div class="game-thumb" style="color: ${game.color};">
+                <i class="fas ${game.icon}"></i>
+              </div>
+              <div class="game-info">
+                <div class="game-title">${game.title}</div>
+                <div class="game-meta">
+                  <span><i class="fas fa-star"></i> ${game.rating.toFixed(1)}</span>
+                  <span class="badge">${game.category}</span>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        gamesGrid.innerHTML = html;
+      }
+
+      // Первоначальная отрисовка
+      renderGames();
+
+      // Обработка поиска
+      searchInput.addEventListener('input', (e) => {
+        renderGames(e.target.value);
+      });
+
+      // Опционально: клик по карточке (можно добавить позже)
+      gamesGrid.addEventListener('click', (e) => {
+        const card = e.target.closest('.game-card');
+        if (card) {
+          const title = card.querySelector('.game-title')?.innerText || 'Игра';
+          // Здесь можно запустить игру или показать уведомление
+          alert(`🎮 Запуск игры: ${title}\n(демо-режим, интеграция игр добавляется отдельно)`);
+        }
+      });
+
+      // Обновим количество игр в статистике (динамически)
+      const gameCountSpan = document.querySelector('.stats span:first-child');
+      if (gameCountSpan) {
+        gameCountSpan.innerHTML = `<i class="fas fa-dice"></i> ${gamesData.length} игры`;
+      }
+    })();
+  </script>
+
+  <!-- Дополнительно: эмуляция "онлайн" для красоты -->
+  <script>
+    // Обновление числа онлайн каждые 5 секунд (для живости)
+    setInterval(() => {
+      const onlineSpan = document.querySelector('.stats span:last-child');
+      if (onlineSpan) {
+        const current = Math.floor(1000 + Math.random() * 800);
+        onlineSpan.innerHTML = `<i class="fas fa-users"></i> ${current} онлайн`;
+      }
+    }, 5000);
+  </script>
+</body>
+</html>
